@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>soqa | Инфо</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            color: #e9edef;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Анимации снега */
+        .snowflake {
+            position: absolute;
+            top: -10px;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 18px;
+            z-index: 1;
+            user-select: none;
+            pointer-events: none;
+        }
+
+        /* Анимации облаков */
+        .cloud {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50px;
+            z-index: 1;
+            user-select: none;
+            pointer-events: none;
+            opacity: 0.7;
+        }
+
+        /* Анимации звезд */
+        .star {
+            position: absolute;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            z-index: 1;
+            user-select: none;
+            pointer-events: none;
+            animation: twinkle 3s infinite alternate;
+        }
+
+        @keyframes twinkle {
+            0% { opacity: 0.3; }
+            100% { opacity: 0.9; }
+        }
+
+        /* Контейнер контента */
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Заголовок в стиле Telegram */
+        .header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+            padding: 15px;
+            background: rgba(32, 44, 51, 0.8);
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .avatar {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            font-weight: bold;
+            margin-right: 15px;
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .name {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .status {
+            font-size: 14px;
+            color: #8696a0;
+        }
+
+        /* Карточки в стиле Telegram */
+        .card {
+            background: rgba(32, 44, 51, 0.8);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            color: #53bdeb;
+        }
+
+        .card-title::before {
+            content: "•";
+            margin-right: 8px;
+            font-size: 24px;
+        }
+
+        .list-item {
+            margin-bottom: 10px;
+            padding-left: 15px;
+            position: relative;
+            line-height: 1.4;
+        }
+
+        .list-item::before {
+            content: "·";
+            position: absolute;
+            left: 0;
+            color: #53bdeb;
+        }
+
+        .tag {
+            display: inline-block;
+            background: rgba(83, 189, 235, 0.2);
+            padding: 3px 8px;
+border-radius: 10px;
+            margin: 2px 3px;
+            font-size: 13px;
+        }
+
+        /* Японские элементы */
+        .japanese-decoration {
+            position: absolute;
+            font-size: 24px;
+            opacity: 0.1;
+            z-index: 1;
+            user-select: none;
+            pointer-events: none;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 480px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .card {
+                padding: 15px;
+            }
+            
+            .avatar {
+                width: 60px;
+                height: 60px;
+                font-size: 28px;
+            }
+            
+            .name {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Снежинки -->
+    <div id="snow-container"></div>
+    
+    <!-- Облака -->
+    <div id="cloud-container"></div>
+    
+    <!-- Звезды -->
+    <div id="star-container"></div>
+    
+    <!-- Японские декоративные элементы -->
+    <div class="japanese-decoration" style="top: 10%; left: 5%;">桜</div>
+    <div class="japanese-decoration" style="top: 15%; right: 7%;">雪</div>
+    <div class="japanese-decoration" style="bottom: 20%; left: 8%;">星</div>
+    <div class="japanese-decoration" style="bottom: 15%; right: 5%;">月</div>
+
+    <!-- Основной контент -->
+    <div class="container">
+        <!-- Шапка профиля -->
+        <div class="header">
+            <div class="avatar">S</div>
+            <div>
+                <div class="name">soqa</div>
+                <div class="status">在线 · 自由</div>
+            </div>
+        </div>
+
+        <!-- Основная информация -->
+        <div class="card">
+            <div class="card-title">Основная информация</div>
+            <div class="list-item">зз: козерог 19.01</div>
+            <div class="list-item">возраст скрыт</div>
+            <div class="list-item">свободна</div>
+            <div class="list-item">прон: she/her</div>
+        </div>
+
+        <!-- Кинны -->
+        <div class="card">
+            <div class="card-title">Кинны</div>
+            <div class="list-item">лаума (геншин)</div>
+            <div class="list-item">ая (парень, которым увлечена)</div>
+            <div class="list-item">астарот (геншин)</div>
+        </div>
+
+        <!-- Фандомы и интересы -->
+        <div class="card">
+            <div class="card-title">Фандомы и интересы</div>
+            <div>
+                <span class="tag">Отель Хазбин</span>
+                <span class="tag">Последняя реальность</span>
+                <span class="tag">Тринадцать огней</span>
+                <span class="tag">Голос времени</span>
+                <span class="tag">Осколки снов</span>
+                <span class="tag">Вместе</span>
+                <span class="tag">Дневник плохих мыслей</span>
+                <span class="tag">дроны убийцы</span>
+                <span class="tag">ключи королевства</span>
+                <span class="tag">метал фемили</span>
+                <span class="tag">уцц</span>
+                <span class="tag">кпоп (50/50)</span>
+                <span class="tag">блюлок</span>
+                <span class="tag">волейбол</span>
+            </div>
+        </div>
+
+        <!-- Любимые игры -->
+        <div class="card">
+            <div class="card-title">Любимые игры</div>
+            <div>
+                <span class="tag">FNAF</span>
+                <span class="tag">Yandere Simulator</span>
+                <span class="tag">The Purgatory of Hopes</span>
+                <span class="tag">майн</span>
+                <span class="tag">genshin impact</span>
+                <span class="tag">roblox</span>
+                <span class="tag">zzz</span>
+            </div>
+        </div>
+
+        <!-- Любимые аниме и манга -->
+        <div class="card">
+            <div class="card-title">Любимые аниме и манга</div>
+            <div style="line-height: 1.6;">
+                <span class="tag">Твоё имя</span>
+                <span class="tag">Бездомный бог</span>
+<span class="tag">Форма голоса</span>
+                <span class="tag">Унесённые призраками</span>
+                <span class="tag">Нет игры — нет жизни</span>
+                <span class="tag">Ходячий замок</span>
+                <span class="tag">Иная</span>
+                <span class="tag">Хоримия</span>
+                <span class="tag">Кукла влюбилась</span>
+                <span class="tag">Укрась прощальное утро цветами</span>
+                <span class="tag">Чудовище за последней партой</span>
+                <span class="tag">Сад изящных слов</span>
+                <span class="tag">Ангел кровопролития</span>
+                <span class="tag">Повар-боец</span>
+                <span class="tag">Ребёнок идола</span>
+                <span class="tag">Агент времени</span>
+                <span class="tag">Очень приятно Бог</span>
+                <span class="tag">Госпожа Кагуя</span>
+                <span class="tag">Банановая рыба</span>
+                <span class="tag">Кланнад</span>
+                <span class="tag">Монолог фармацевта</span>
+                <span class="tag">Семья шпиона</span>
+                <span class="tag">Не моя вина, что я непопулярна</span>
+                <span class="tag">Кейон!</span>
+                <span class="tag">Добро пожаловать в класс превосходства</span>
+                <span class="tag">Пять невест</span>
+                <span class="tag">Двуличная сестрёнка Умару</span>
+                <span class="tag">Связь сердец</span>
+                <span class="tag">Чудачества любви не помеха</span>
+                <span class="tag">Нана</span>
+                <span class="tag">У Коми проблемы с общением</span>
+                <span class="tag">Дотянуться до тебя</span>
+                <span class="tag">Как воспитать героиню из девушки</span>
+                <span class="tag">Неудержимая юность</span>
+                <span class="tag">Не издевайся, Нагаторо-сан</span>
+                <span class="tag">Человек-бензопила</span>
+                <span class="tag">крд</span>
+            </div>
+        </div>
+
+        <!-- Музыкальный вкус -->
+        <div class="card">
+            <div class="card-title">Музыкальный вкус</div>
+            <div class="list-item">Любимые исполнители: mzlff (!), beabadoobee (!!), Ado (!)</div>
+            <div class="list-item">Любимые треки: «Цветочек маленький», «Readymade», «Glue Song», «Talk»</div>
+        </div>
+
+        <!-- Предпочтения -->
+        <div class="card">
+            <div class="card-title">Предпочтения</div>
+            <div class="list-item">Любимые жанры: Романтика, Фэнтези</div>
+            <div class="list-item">Часто играю в: Genshin Impact, Murder Mystery 2, севх</div>
+            <div class="list-item">Хобби: Музыка, Писательство</div>
+            <div class="list-item">Любимая еда: Гречневый суп</div>
+            <div class="list-item">Не переношу: Всю молочку</div>
+            <div class="list-item">Любимые цвета: темно-синий, белый (пастельный) и вся пастельная палитра</div>
+        </div>
+
+        <!-- MBTI -->
+        <div class="card">
+            <div class="card-title">MBTI</div>
+            <div class="list-item">Основной: ENTP-T</div>
+            <div class="list-item">Грин/ф: ENFP-T, INTJ-T-A</div>
+            <div class="list-item">Ред/ф: ENTJ</div>
+            <div class="list-item">Примечание: мой мбти, с развитым fe, поэтому не бойтесь я добрая</div>
+        </div>
+
+        <!-- Примечание -->
+        <div class="card">
+            <div class="list-item" style="font-style: italic; color: #8696a0; padding-left: 0;">
+                Примечание: эта карточка была создана для флуда, но теперь живёт здесь для любознательных
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Создание снежинок
+        function createSnowflakes() {
+            const snowContainer = document.getElementById('snow-container');
+            const snowflakes = ['❄️', '❅', '❆'];
+            
+            for (let i = 0; i < 50; i++) {
+                const snowflake = document.createElement('div');
+snowflake.classList.add('snowflake');
+                snowflake.innerHTML = snowflakes[Math.floor(Math.random() * snowflakes.length)];
+                
+                // Случайная позиция и размер
+                const size = Math.random() * 10 + 10;
+                snowflake.style.fontSize = `${size}px`;
+                snowflake.style.left = `${Math.random() * 100}vw`;
+                
+                // Анимация падения
+                const duration = Math.random() * 5 + 5;
+                const delay = Math.random() * 5;
+                snowflake.style.animation = `fall ${duration}s linear ${delay}s infinite`;
+                
+                // Создаем CSS для анимации падения
+                if (!document.querySelector('#snow-animation')) {
+                    const style = document.createElement('style');
+                    style.id = 'snow-animation';
+                    style.textContent = `
+                        @keyframes fall {
+                            to {
+                                transform: translateY(100vh) rotate(360deg);
+                                opacity: 0;
+                            }
+                        }
+                    `;
+                    document.head.appendChild(style);
+                }
+                
+                snowContainer.appendChild(snowflake);
+            }
+        }
+
+        // Создание облаков
+        function createClouds() {
+            const cloudContainer = document.getElementById('cloud-container');
+            
+            for (let i = 0; i < 5; i++) {
+                const cloud = document.createElement('div');
+                cloud.classList.add('cloud');
+                
+                // Размеры облака
+                const width = Math.random() * 100 + 50;
+                const height = Math.random() * 30 + 20;
+                cloud.style.width = `${width}px`;
+                cloud.style.height = `${height}px`;
+                
+                // Позиция
+                cloud.style.top = `${Math.random() * 50}%`;
+                cloud.style.left = `${Math.random() * 100}%`;
+                
+                // Анимация движения
+                const duration = Math.random() * 30 + 30;
+                cloud.style.animation = `float ${duration}s linear infinite`;
+                
+                cloudContainer.appendChild(cloud);
+            }
+            
+            // Создаем CSS для анимации облаков
+            if (!document.querySelector('#cloud-animation')) {
+                const style = document.createElement('style');
+                style.id = 'cloud-animation';
+                style.textContent = `
+                    @keyframes float {
+                        0% {
+                            transform: translateX(0);
+                        }
+                        50% {
+                            transform: translateX(20px);
+                        }
+                        100% {
+                            transform: translateX(0);
+                        }
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+        }
+
+        // Создание звезд
+        function createStars() {
+            const starContainer = document.getElementById('star-container');
+            
+            for (let i = 0; i < 30; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                
+                // Размер звезды
+                const size = Math.random() * 3 + 1;
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                
+                // Позиция
+                star.style.top = `${Math.random() * 100}%`;
+                star.style.left = `${Math.random() * 100}%`;
+                
+                // Случайная задержка мерцания
+                star.style.animationDelay = `${Math.random() * 3}s`;
+                
+                starContainer.appendChild(star);
+            }
+        }
+
+        // Инициализация анимаций после загрузки страницы
+window.addEventListener('load', function() {
+            createSnowflakes();
+            createClouds();
+            createStars();
+        });
+    </script>
+</body>
+</html>
